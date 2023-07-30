@@ -1,4 +1,3 @@
-\*.egg-info
 __pycache__
 dist/
 *.pyc
@@ -6,3 +5,4 @@ dist/
 .coverage
 coverage.xml
 .pytest_cache/
+.env
