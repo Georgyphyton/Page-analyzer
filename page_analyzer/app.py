@@ -52,9 +52,11 @@ def to_url(id):
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
             url_inf = curs.fetchone()
+            curs.execute('SELECT * FROM url_checks WHERE url_id=%s', (id,))
+            url_checks = curs.fetchall()
     if not url_inf:
         return 'net takogo url', 404
-    return render_template('page.html', url=url_inf)
+    return render_template('page.html', url=url_inf, url_checks=url_checks)
 
 
 @app.get('/urls')
@@ -63,4 +65,15 @@ def to_urls():
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
             curs.execute('SELECT * FROM urls')
             urls = curs.fetchall()
-    return render_template('pages.html', urls=urls)
+            curs.execute('SELECT DISTINCT ON (url_id) * FROM url_checks')
+            url_checks = curs.fetchall()
+    return render_template('pages.html', urls=urls, url_checks=url_checks)
+
+
+@app.post('/urls/<id>/checks')
+def post_check(id):
+    current_date = date.today()
+    with connection() as conn:
+        with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+            curs.execute('INSERT INTO url_checks (url_id, created_at) VALUES (%s, %s)', (id, current_date))
+    return redirect(url_for('to_url', id=id))

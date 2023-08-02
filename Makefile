@@ -34,5 +34,8 @@ check: selfcheck test lint
 build: check
 	poetry build
 
+builds:
+	./build.sh
+
 
 .PHONY: install test lint selfcheck check build
