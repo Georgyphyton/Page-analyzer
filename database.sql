@@ -9,4 +9,5 @@ CREATE TABLE url_checks (
     status_code integer,
     h1 text,
     title text,
-    description text);
+    description text,
+    created_at date);

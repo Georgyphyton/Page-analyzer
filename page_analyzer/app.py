@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from datetime import date
 from dotenv import load_dotenv
 import psycopg2
+import requests
 import os
 from urllib.parse import urlparse
 from page_analyzer.validat import valid
@@ -75,5 +76,9 @@ def post_check(id):
     current_date = date.today()
     with connection() as conn:
         with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
-            curs.execute('INSERT INTO url_checks (url_id, created_at) VALUES (%s, %s)', (id, current_date))
+            curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
+            url_inf = curs.fetchone()
+            code = requests.get(url_inf.name)
+            curs.execute('INSERT INTO url_checks (url_id, status_code, created_at) VALUES (%s, %s, %s)',
+                         (id, code.status_code, current_date))
     return redirect(url_for('to_url', id=id))

@@ -25,7 +25,7 @@
                         {% for url_check in url_checks %}
                         {% if url_check.url_id == url.id %}
                         <td>{{url_check.created_at}}</td>
-                        <td></td>
+                        <td>{{url_check.status_code}}</td>
                         {% endif %}
                         {% endfor %}
                       </tr>

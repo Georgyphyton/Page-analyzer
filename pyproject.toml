@@ -12,6 +12,7 @@ flask = "^2.3.2"
 gunicorn = "^21.2.0"
 psycopg2-binary = "^2.9.6"
 validators = "^0.20.0"
+requests = "^2.31.0"
 
 
 [tool.poetry.group.dev.dependencies]
