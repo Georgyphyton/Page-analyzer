@@ -40,12 +40,12 @@ def post_urls():
             curs.execute('SELECT * FROM urls WHERE name=%s', (valid_url,))
             cur_url = curs.fetchone()
             if cur_url:
-                flash('Страница уже добавлена', 'info')
+                flash('Страница уже существует', 'info')
                 return redirect(url_for('to_url', id=cur_url.id), code=302)
             curs.execute('INSERT INTO urls (name, created_at) VALUES (%s, %s)', (valid_url, current_date))
             curs.execute('SELECT * FROM urls WHERE name=%s', (valid_url,))
             cur_url = curs.fetchone()
-            flash('Страница добавлена', 'success')
+            flash('Страница успешно добавлена', 'success')
             return redirect(url_for('to_url', id=cur_url.id))
 
 
@@ -96,4 +96,5 @@ def post_check(id):
             curs.execute('''INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
                           VALUES (%s, %s, %s, %s, %s, %s)''',
                          (id, response.status_code, h1, title, description, current_date))
+    flash('Страница успешно проверена', 'success')
     return redirect(url_for('to_url', id=id))

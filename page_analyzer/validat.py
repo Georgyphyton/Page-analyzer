@@ -6,7 +6,7 @@ def valid(url):
     if len(url) > 255:
         errors['big_len'] = 'Url привышает размер 255 символов'
     if not validators.url(url):
-        errors['valid'] = 'Введите корректный url'
+        errors['valid'] = 'Некорректный URL'
     if not url:
         errors['empty'] = 'url не должен быть пустой'
     return errors
