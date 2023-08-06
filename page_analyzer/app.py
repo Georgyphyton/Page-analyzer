@@ -85,6 +85,7 @@ def post_check(id):
             url_inf = curs.fetchone()
             try:
                 response = requests.get(url_inf.name)
+                response.raise_for_status()
             except requests.RequestException:
                 flash('Произошла ошибка при проверке', 'error')
                 return redirect(url_for('to_url', id=id))
