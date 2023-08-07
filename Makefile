@@ -37,5 +37,4 @@ build: check
 builds:
 	./build.sh
 
-
 .PHONY: install test lint selfcheck check build
