@@ -23,8 +23,6 @@ Clone this repository
 Install dependencies by poetry install
 - make install
 
-Copy the content from .env.sample and paste it in your .env file.
-- cp .env.sample .env
 
 Run:
 - make start
